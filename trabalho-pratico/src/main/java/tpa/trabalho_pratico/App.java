@@ -1,9 +1,9 @@
 package tpa.trabalho_pratico;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import tpa.trabalho_pratico.util.ArquivoUtil;
+
+public class App {
+    public static void main(String[] args) {
+        ArquivoUtil.geraArquivoTeste(1000000L);
     }
 }
