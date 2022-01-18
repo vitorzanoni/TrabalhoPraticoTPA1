@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import com.github.javafaker.Faker;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
-@Log
+@Slf4j
 public class ArquivoUtil {
 
     private ArquivoUtil() {
@@ -19,7 +19,6 @@ public class ArquivoUtil {
     public static void geraArquivoTeste(Long maxSize) {
         try {
             final File saida = new File("teste" + maxSize + ".txt");
-            log.info(saida.getName());
             final BufferedWriter out = new BufferedWriter(new FileWriter(saida));
             final Faker faker = new Faker();
             String nome = faker.name().fullName();
@@ -39,7 +38,7 @@ public class ArquivoUtil {
             }
             out.close();
         } catch (IOException e) {
-            log.info("Erro ao gerar o arquivo para teste -> " + e.getMessage());
+            log.info("Erro ao gerar o arquivo para teste.", e);
         }
     }
 }
