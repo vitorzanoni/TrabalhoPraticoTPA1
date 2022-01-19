@@ -15,7 +15,7 @@ public class App {
         ArquivoUtil.geraArquivoTeste(1L);
         log.info("Fim da geracao");
         BufferedReader reader = new BufferedReader(new FileReader("C:/Users/carol/Documents/GitHub/TrabalhoPraticoTPA1/teste1000000.txt"));
-        for (long i=0; i<5; i++)
+        for (long i=0; i<ArquivoUtil.countLines("C:/Users/carol/Documents/GitHub/TrabalhoPraticoTPA1/teste1000000.txt")/1000000; i++)
         {
             MergeSortExterno.divideEntrada(i, reader);
 

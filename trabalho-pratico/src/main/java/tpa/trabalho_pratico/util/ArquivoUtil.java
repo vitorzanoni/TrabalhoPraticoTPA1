@@ -1,7 +1,9 @@
 package tpa.trabalho_pratico.util;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -40,5 +42,13 @@ public class ArquivoUtil {
         } catch (IOException e) {
             log.info("Erro ao gerar o arquivo para teste.", e);
         }
+    }
+
+    public static long countLines(String path) throws IOException {
+
+        BufferedReader bf = new BufferedReader(new FileReader(path));
+        long count = bf.lines().count();
+        bf.close();
+        return count;
     }
 }
