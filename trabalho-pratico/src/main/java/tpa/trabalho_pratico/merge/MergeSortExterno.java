@@ -5,6 +5,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.sound.sampled.SourceDataLine;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,12 +31,19 @@ public class MergeSortExterno {
     public static void divideEntrada(Long numero, BufferedReader reader) throws IOException, InterruptedException {
         log.info("numero -> {}", numero);
         BufferedWriter out = new BufferedWriter(new FileWriter(new File("lista"+ numero.toString() + ".txt")));
-        for (long i = numero * num_arq; i < numero * num_arq + num_arq ; i++) {
-            String linha = reader.readLine() + '\n';
+        List<String> linhas = new ArrayList<>();
 
-            out.write(linha);
-            
+        for (long i = numero * num_arq; i < numero * num_arq + num_arq ; i+=5) {
+            linhas.add(reader.readLine() + '\n' + reader.readLine() + '\n' + reader.readLine() + '\n' + reader.readLine() + '\n' + reader.readLine() + '\n');        
         }
+        linhas.sort((a, b) -> a.compareTo(b));
+        linhas.forEach(arg0 -> {
+            try {
+                out.write(arg0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         out.close();
     }
 }
