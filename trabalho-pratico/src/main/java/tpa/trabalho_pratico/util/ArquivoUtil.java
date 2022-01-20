@@ -18,10 +18,10 @@ public final class ArquivoUtil {
 
     }
 
-    public static void geraArquivoTeste(Long maxSize) {
+    public static File geraArquivoTeste(Long maxSize) {
         try {
-            final File saida = new File("teste" + maxSize + ".txt");
-            final BufferedWriter out = new BufferedWriter(new FileWriter(saida));
+            final File gerado = new File("gerado" + maxSize + ".txt");
+            final BufferedWriter out = new BufferedWriter(new FileWriter(gerado));
             final Faker faker = new Faker();
             String nome = faker.name().fullName();
             String telefone = faker.phoneNumber().cellPhone();
@@ -39,15 +39,17 @@ public final class ArquivoUtil {
                 pais = faker.address().country();
             }
             out.close();
+            return gerado;
         } catch (IOException e) {
             log.info("Erro ao gerar o arquivo para teste.", e);
         }
+        return null;
     }
 
-    public static long countLines(String path) throws IOException {
+    public static long countLines(File arquivo) throws IOException {
 
-        BufferedReader bf = new BufferedReader(new FileReader(path));
-        long count = bf.lines().count();
+        final BufferedReader bf = new BufferedReader(new FileReader(arquivo));
+        final long count = bf.lines().count();
         bf.close();
         return count;
     }

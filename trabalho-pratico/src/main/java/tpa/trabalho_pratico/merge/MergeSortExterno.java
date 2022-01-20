@@ -24,9 +24,8 @@ public final class MergeSortExterno {
     private static final int num_arq = 1000000;
 
     public static void divideEntrada(Long numero, BufferedReader reader) throws IOException, InterruptedException {
-        log.info("numero -> {}", numero);
-        BufferedWriter out = new BufferedWriter(new FileWriter(new File("lista" + numero.toString() + ".txt")));
-        List<String> linhas = new ArrayList<>();
+        final BufferedWriter out = new BufferedWriter(new FileWriter(new File("lista" + numero.toString() + ".txt")));
+        final List<String> linhas = new ArrayList<>();
 
         for (long i = numero * num_arq; i < numero * num_arq + num_arq; i += 5) {
             linhas.add(reader.readLine() + '\n' + reader.readLine() + '\n' + reader.readLine() + '\n'

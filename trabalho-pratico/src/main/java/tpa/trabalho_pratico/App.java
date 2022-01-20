@@ -1,6 +1,7 @@
 package tpa.trabalho_pratico;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,13 +13,11 @@ import tpa.trabalho_pratico.util.ArquivoUtil;
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
         log.info("Iniciada a geracao");
-        ArquivoUtil.geraArquivoTeste(1L);
+        File gerado = ArquivoUtil.geraArquivoTeste(1000000L);
         log.info("Fim da geracao");
-        BufferedReader reader = new BufferedReader(new FileReader("C:/Users/carol/Documents/GitHub/TrabalhoPraticoTPA1/teste1000000.txt"));
-        for (long i=0; i<ArquivoUtil.countLines("C:/Users/carol/Documents/GitHub/TrabalhoPraticoTPA1/teste1000000.txt")/1000000; i++)
-        {
+        final BufferedReader reader = new BufferedReader(new FileReader(gerado));
+        for (long i = 0; i < ArquivoUtil.countLines(gerado) / 1000000; i++) {
             MergeSortExterno.divideEntrada(i, reader);
-
         }
         reader.close();
     }
