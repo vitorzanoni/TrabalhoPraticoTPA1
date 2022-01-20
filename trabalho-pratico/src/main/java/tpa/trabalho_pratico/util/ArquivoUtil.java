@@ -12,11 +12,11 @@ import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ArquivoUtil {
+public final class ArquivoUtil {
 
     private ArquivoUtil() {
 
-     }
+    }
 
     public static void geraArquivoTeste(Long maxSize) {
         try {
