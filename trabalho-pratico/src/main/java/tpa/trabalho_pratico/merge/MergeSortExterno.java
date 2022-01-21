@@ -10,9 +10,7 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 @Setter
 public final class MergeSortExterno {
@@ -23,8 +21,9 @@ public final class MergeSortExterno {
 
     private static final int num_arq = 1000000;
 
-    public static void divideEntrada(Long numero, BufferedReader reader) throws IOException, InterruptedException {
-        final BufferedWriter out = new BufferedWriter(new FileWriter(new File("lista" + numero.toString() + ".txt")));
+    public static String divideEntrada(Long numero, BufferedReader reader) throws IOException {
+        final File arquivo = new File("lista" + numero.toString() + ".txt");
+        final BufferedWriter out = new BufferedWriter(new FileWriter(arquivo));
         final List<String> linhas = new ArrayList<>();
 
         for (long i = numero * num_arq; i < numero * num_arq + num_arq; i += 5) {
@@ -40,5 +39,6 @@ public final class MergeSortExterno {
             }
         });
         out.close();
+        return arquivo.getName();
     }
 }
