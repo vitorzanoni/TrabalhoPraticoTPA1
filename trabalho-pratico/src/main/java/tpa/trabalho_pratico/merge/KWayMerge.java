@@ -27,33 +27,42 @@ public final class KWayMerge {
         final BufferedWriter out = new BufferedWriter(
                 new FileWriter("merge_" + a.getName().substring(0, 6) + '_' + b.getName().substring(0, 6) + ".txt"));
 
+        String linhaA = brA.readLine() + '\n' + brA.readLine() + '\n' + brA.readLine() + '\n'
+                + brA.readLine() + '\n' + brA.readLine() + '\n';
+        String linhaB = brB.readLine() + '\n' + brB.readLine() + '\n' + brB.readLine() + '\n'
+                + brB.readLine() + '\n' + brB.readLine() + '\n';
         while ((contA < sizeA) && (contB < sizeB)) {
-            String linhaA = brA.readLine() + '\n' + brA.readLine() + '\n' + brA.readLine() + '\n'
-                    + brA.readLine() + '\n' + brA.readLine() + '\n';
-            String linhaB = brB.readLine() + '\n' + brB.readLine() + '\n' + brB.readLine() + '\n'
-                    + brB.readLine() + '\n' + brB.readLine() + '\n';
             if (linhaA.equals(linhaB)) {
                 out.write(linhaA);
+                out.write(linhaB);
+                linhaA = brA.readLine() + '\n' + brA.readLine() + '\n' + brA.readLine() + '\n'
+                        + brA.readLine() + '\n' + brA.readLine() + '\n';
+                linhaB = brB.readLine() + '\n' + brB.readLine() + '\n' + brB.readLine() + '\n'
+                        + brB.readLine() + '\n' + brB.readLine() + '\n';
                 contA += 5;
                 contB += 5;
             } else if (linhaA.compareTo(linhaB) < 0) {
                 out.write(linhaA);
+                linhaA = brA.readLine() + '\n' + brA.readLine() + '\n' + brA.readLine() + '\n'
+                        + brA.readLine() + '\n' + brA.readLine() + '\n';
                 contA += 5;
             } else {
                 out.write(linhaB);
+                linhaB = brB.readLine() + '\n' + brB.readLine() + '\n' + brB.readLine() + '\n'
+                        + brB.readLine() + '\n' + brB.readLine() + '\n';
                 contB += 5;
             }
         }
         while (contA < sizeA) {
-            String linhaA = brA.readLine() + '\n' + brA.readLine() + '\n' + brA.readLine() + '\n'
-                    + brA.readLine() + '\n' + brA.readLine() + '\n';
             out.write(linhaA);
+            linhaA = brA.readLine() + '\n' + brA.readLine() + '\n' + brA.readLine() + '\n'
+                    + brA.readLine() + '\n' + brA.readLine() + '\n';
             contA += 5;
         }
         while (contB < sizeB) {
-            String linhaB = brB.readLine() + '\n' + brB.readLine() + '\n' + brB.readLine() + '\n'
-                    + brB.readLine() + '\n' + brB.readLine() + '\n';
             out.write(linhaB);
+            linhaB = brB.readLine() + '\n' + brB.readLine() + '\n' + brB.readLine() + '\n'
+                    + brB.readLine() + '\n' + brB.readLine() + '\n';
             contB += 5;
         }
         brA.close();
