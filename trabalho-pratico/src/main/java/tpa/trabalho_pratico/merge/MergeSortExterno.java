@@ -10,7 +10,6 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import tpa.trabalho_pratico.util.ArquivoUtil;
 
 @Getter
 @Setter
