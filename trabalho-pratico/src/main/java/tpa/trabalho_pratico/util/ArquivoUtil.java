@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.github.javafaker.Faker;
 
@@ -16,6 +18,26 @@ public final class ArquivoUtil {
 
     private ArquivoUtil() {
 
+    }
+
+    public static String divideArquivoCSV(Long numero, BufferedReader reader, long num_linhas) throws IOException {
+        final File arquivo = new File("lista" + numero.toString() + ".csv");
+        final BufferedWriter out = new BufferedWriter(new FileWriter(arquivo));
+        final List<String> linhas = new ArrayList<>();
+
+        for (long i = numero * num_linhas; i < numero * num_linhas + num_linhas; i++) {
+            linhas.add(reader.readLine() + '\n');
+        }
+        linhas.sort((a, b) -> a.compareTo(b));
+        linhas.forEach(arg0 -> {
+            try {
+                out.write(arg0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        out.close();
+        return arquivo.getName();
     }
 
     public static File geraArquivoTesteCSV(Long maxSize) {

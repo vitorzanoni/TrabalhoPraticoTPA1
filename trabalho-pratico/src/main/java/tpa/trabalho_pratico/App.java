@@ -26,7 +26,7 @@ public class App {
 
         log.info("Iniciada a divisao");
         for (long i = 0; i < 10; i++) {
-            arquivos.add(MergeSortExterno.realizaMergeSortCSV(i, reader, num_linhas));
+            arquivos.add(ArquivoUtil.divideArquivoCSV(i, reader, num_linhas));
         }
         log.info("Fim da divisao");
 
