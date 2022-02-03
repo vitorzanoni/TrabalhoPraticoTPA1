@@ -20,7 +20,7 @@ public final class ArquivoUtil {
 
     }
 
-    public static String divideArquivoCSV(Long numero, BufferedReader reader, long num_linhas) throws IOException {
+    public static String divideArquivoCSV(Long numero, BufferedReader reader, long num_linhas, boolean ordena) throws IOException {
         final File arquivo = new File("lista" + numero.toString() + ".csv");
         final BufferedWriter out = new BufferedWriter(new FileWriter(arquivo));
         final List<String> linhas = new ArrayList<>();
@@ -28,7 +28,11 @@ public final class ArquivoUtil {
         for (long i = numero * num_linhas; i < numero * num_linhas + num_linhas; i++) {
             linhas.add(reader.readLine() + '\n');
         }
-        linhas.sort((a, b) -> a.compareTo(b));
+        
+        if (ordena) {
+            linhas.sort((a, b) -> a.compareTo(b));
+        }
+        
         linhas.forEach(arg0 -> {
             try {
                 out.write(arg0);

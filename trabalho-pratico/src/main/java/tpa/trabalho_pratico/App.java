@@ -20,22 +20,24 @@ public class App {
         // log.info("Fim da geracao");
 
         final File gerado = new File("gerado1000000.csv");
-        final BufferedReader reader = new BufferedReader(new FileReader(gerado));
-        final List<String> arquivos = new ArrayList<>();
-        final long num_linhas = ArquivoUtil.countLines(gerado) / 10L;
+        MergeSortExterno.realizaMergeSortCSV(gerado);
 
-        log.info("Iniciada a divisao");
-        for (long i = 0; i < 10; i++) {
-            arquivos.add(ArquivoUtil.divideArquivoCSV(i, reader, num_linhas));
-        }
-        log.info("Fim da divisao");
+        // final BufferedReader reader = new BufferedReader(new FileReader(gerado));
+        // final List<String> arquivos = new ArrayList<>();
+        // final long num_linhas = ArquivoUtil.countLines(gerado) / 10L;
 
-        reader.close();
+        // log.info("Iniciada a divisao");
+        // for (long i = 0; i < 10; i++) {
+        //     arquivos.add(ArquivoUtil.divideArquivoCSV(i, reader, num_linhas, true));
+        // }
+        // log.info("Fim da divisao");
 
-        log.info("Iniciado o k-way merge");
-        while (arquivos.size() > 1) {
-            KWayMerge.realizaKWayMergeCSV(new File(arquivos.get(0)), new File(arquivos.get(1)), arquivos);
-        }
-        log.info("Fim do k-way merge");
+        // reader.close();
+
+        // log.info("Iniciado o k-way merge");
+        // while (arquivos.size() > 1) {
+        //     KWayMerge.realizaKWayMergeCSV(new File(arquivos.get(0)), new File(arquivos.get(1)), arquivos);
+        // }
+        // log.info("Fim do k-way merge");
     }
 }
