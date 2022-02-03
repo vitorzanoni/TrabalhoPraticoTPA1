@@ -125,7 +125,6 @@ public final class MergeSortExterno {
         writer0 = new BufferedWriter(new FileWriter(arquivo2));
         writer1 = new BufferedWriter(new FileWriter(arquivo3));
 
-        leLinhas();
         boolean troca = true;
         while (run <= metade) {
             leLinhas();
@@ -178,6 +177,8 @@ public final class MergeSortExterno {
                     }
                 }
             }
+            escrita0.sort((a, b) -> a.compareTo(b));
+            escrita1.sort((a, b) -> a.compareTo(b));
             escreveLinhas(writer0, escrita0);
             escreveLinhas(writer1, escrita1);
             if (run == metade) {

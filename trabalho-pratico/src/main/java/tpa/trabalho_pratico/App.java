@@ -16,7 +16,7 @@ import tpa.trabalho_pratico.util.ArquivoUtil;
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
         log.info("Iniciada a geracao");
-        final File gerado = ArquivoUtil.geraArquivoTesteCSV(10L);
+        final File gerado = ArquivoUtil.geraArquivoTesteCSV(100L);
         log.info("Fim da geracao");
 
         //final File gerado = new File("gerado1000000.csv");
