@@ -15,12 +15,12 @@ import tpa.trabalho_pratico.util.ArquivoUtil;
 @Slf4j
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
-        // log.info("Iniciada a geracao");
-        // final File gerado = ArquivoUtil.geraArquivoTesteCSV(20000000L);
-        // log.info("Fim da geracao");
+        log.info("Iniciada a geracao");
+        final File gerado = ArquivoUtil.geraArquivoTesteCSV(10L);
+        log.info("Fim da geracao");
 
-        final File gerado = new File("gerado1000000.csv");
-        MergeSortExterno.realizaMergeSortCSV(gerado);
+        //final File gerado = new File("gerado1000000.csv");
+        MergeSortExterno.realizaMergeSortCSV(gerado, true);
 
         // final BufferedReader reader = new BufferedReader(new FileReader(gerado));
         // final List<String> arquivos = new ArrayList<>();
