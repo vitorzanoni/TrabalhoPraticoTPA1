@@ -18,9 +18,9 @@ public final class ArquivoUtil {
 
     }
 
-    public static File geraArquivoTeste(Long maxSize) {
+    public static File geraArquivoTesteCSV(Long maxSize) {
         try {
-            final File gerado = new File("gerado" + maxSize + ".txt");
+            final File gerado = new File("gerado" + maxSize + ".csv");
             final BufferedWriter out = new BufferedWriter(new FileWriter(gerado));
             final Faker faker = new Faker();
             String nome = faker.name().fullName();
@@ -28,11 +28,10 @@ public final class ArquivoUtil {
             String cidade = faker.address().city();
             String pais = faker.address().country();
             for (long i = 0; i < maxSize; i++) {
-                out.write(nome + '\n'
-                        + telefone + '\n'
-                        + cidade + '\n'
-                        + pais + '\n'
-                        + "-----------\n");
+                out.write(nome + ';'
+                        + telefone + ';'
+                        + cidade + ';'
+                        + pais + ";\n");
                 nome = faker.name().fullName();
                 telefone = faker.phoneNumber().cellPhone();
                 cidade = faker.address().city();
@@ -47,7 +46,6 @@ public final class ArquivoUtil {
     }
 
     public static long countLines(File arquivo) throws IOException {
-
         final BufferedReader bf = new BufferedReader(new FileReader(arquivo));
         final long count = bf.lines().count();
         bf.close();

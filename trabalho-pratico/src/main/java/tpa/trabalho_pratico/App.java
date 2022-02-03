@@ -15,22 +15,26 @@ import tpa.trabalho_pratico.util.ArquivoUtil;
 @Slf4j
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
-        log.info("Iniciada a geracao");
-        File gerado = ArquivoUtil.geraArquivoTeste(2000000L);
-        log.info("Fim da geracao");
+        // log.info("Iniciada a geracao");
+        // final File gerado = ArquivoUtil.geraArquivoTesteCSV(20000000L);
+        // log.info("Fim da geracao");
+
+        final File gerado = new File("gerado1000000.csv");
         final BufferedReader reader = new BufferedReader(new FileReader(gerado));
         final List<String> arquivos = new ArrayList<>();
         final long num_linhas = ArquivoUtil.countLines(gerado) / 10L;
+
         log.info("Iniciada a divisao");
         for (long i = 0; i < 10; i++) {
-            arquivos.add(MergeSortExterno.divideEntrada(i, reader, num_linhas));
+            arquivos.add(MergeSortExterno.realizaMergeSortCSV(i, reader, num_linhas));
         }
         log.info("Fim da divisao");
+
         reader.close();
-        //gerado.delete();
+
         log.info("Iniciado o k-way merge");
         while (arquivos.size() > 1) {
-            KWayMerge.realizaKWayMerge(new File(arquivos.get(0)), new File(arquivos.get(1)), arquivos);
+            KWayMerge.realizaKWayMergeCSV(new File(arquivos.get(0)), new File(arquivos.get(1)), arquivos);
         }
         log.info("Fim do k-way merge");
     }
