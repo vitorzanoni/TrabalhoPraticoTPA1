@@ -124,6 +124,10 @@ public final class MergeSortExterno {
                 break;
             }
         }
+        reader0.close();
+        reader1.close();
+        writer0.close();
+        writer1.close();
     }
 
 }

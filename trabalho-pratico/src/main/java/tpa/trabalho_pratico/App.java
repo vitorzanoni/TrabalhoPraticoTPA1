@@ -2,11 +2,10 @@ package tpa.trabalho_pratico;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,19 +17,20 @@ import tpa.trabalho_pratico.util.ArquivoUtil;
 
 @Slf4j
 public class App {
-    public static void main(String[] args) throws IOException, InterruptedException {
-        // log.info("Iniciada a geracao");
-        // final File gerado = ArquivoUtil.geraArquivoTesteCSV(1000000L);
-        // log.info("Fim da geracao");
 
-        final File gerado = new File("gerado10.csv");
-        final BufferedReader reader = new BufferedReader(new FileReader(gerado));
-        final long numLinhas = ArquivoUtil.countLines(gerado);
+    private static void hash(final long numLinhas) throws FileNotFoundException, IOException {
+        log.info("Iniciado o hash");
+        final HashTable hashTable = new HashTable(numLinhas);
+        final BufferedReader arquivo = new BufferedReader(new FileReader("lista0_lista1_lista2_lista3.csv"));
+        for (String linha : arquivo.lines().toList()) {
+            Elemento elemento = new Elemento(linha);
+            hashTable.salvaElemento(elemento);
+        }
+        arquivo.close();
+        log.info("Fim do hash");
+    }
 
-        // log.info("Iniciado o merge sort externo");
-        // MergeSortExterno.realizaMergeSortCSV(reader, numLinhas);
-        // log.info("Fim do merge sort externo");
-
+    private static void kWayMerge(final BufferedReader reader, final long numLinhas) throws IOException {
         final List<String> arquivos = new ArrayList<>();
 
         log.info("Iniciada a divisao");
@@ -44,19 +44,51 @@ public class App {
             KWayMerge.realizaKWayMergeCSV(new File(arquivos.get(0)), new File(arquivos.get(1)), arquivos);
         }
         log.info("Fim do k-way merge");
-        
-        log.info("Iniciado o hash");
-        final HashTable hashTable = new HashTable();
-        final BufferedReader arquivo = new BufferedReader(new FileReader("lista0_lista1_lista2_lista3.csv"));
-        for (String linha: arquivo.lines().toList()) {
-            Elemento elemento = new Elemento(linha);
-            hashTable.salvaElemento(elemento);
-        }
-        arquivo.close();
-        log.info("Fim do hash");
+    }
 
-        hashTable.consultar("Therese Boyle IV");
+    private static void verificaVazio(File arquivo) throws IOException {
+        FileReader reader = new FileReader(arquivo);
+        if (reader.read() == -1) {
+            reader.close();
+            arquivo.delete();
+        }
+    }
+
+    private static void mergeSortExterno(final BufferedReader reader, final long numLinhas)
+            throws IOException {
+        log.info("Iniciado o merge sort externo");
+        MergeSortExterno.realizaMergeSortCSV(reader, numLinhas);
+        File lista0 = new File("lista0.csv");
+        File lista1 = new File("lista1.csv");
+        File lista2 = new File("lista2.csv");
+        File lista3 = new File("lista3.csv");
+        verificaVazio(lista0);
+        verificaVazio(lista1);
+        verificaVazio(lista2);
+        verificaVazio(lista3);
+        log.info("Fim do merge sort externo");
+    }
+
+    private static File geraArquivo(long maxSize) {
+        log.info("Iniciada a geracao");
+        final File gerado = ArquivoUtil.geraArquivoTesteCSV(maxSize);
+        log.info("Fim da geracao");
+        return gerado;
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        final File gerado = geraArquivo(10L);
+        // final File gerado = new File("gerado10.csv");
+        final BufferedReader reader = new BufferedReader(new FileReader(gerado));
+        final long numLinhas = ArquivoUtil.countLines(gerado);
+
+        mergeSortExterno(reader, numLinhas);
+
+        kWayMerge(reader, numLinhas);
+
+        hash(numLinhas);
 
         reader.close();
     }
+
 }

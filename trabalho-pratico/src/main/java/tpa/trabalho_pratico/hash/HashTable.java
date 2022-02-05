@@ -1,42 +1,40 @@
 package tpa.trabalho_pratico.hash;
 
-import java.lang.constant.Constable;
-
-import javax.crypto.spec.DESKeySpec;
-
 import lombok.Getter;
 
 @Getter
 public class HashTable {
 
-    private static final int TAMANHO = 10;
-    private Dados array[] = new Dados[TAMANHO];
+    private Dados[] array;
+    private int colisoes = 0;
 
-    public Integer calculaHash(Elemento elemento) {
-        Integer soma = 0;
+    public HashTable(Long tamanho) {
+        this.array = new Dados[tamanho.intValue()];
+    }
+
+    public int calculaHash(Elemento elemento) {
+        int soma = 0;
         final byte[] bytes = elemento.getNome().getBytes();
         for (int i = 0; i < bytes.length; i++) {
             soma += bytes[i] * 10 + i;
         }
-        return (soma %= 2069)/TAMANHO;
+        return soma %= 2069;
     }
-    
-    int cont = 0;
+
     public void salvaElemento(Elemento elemento) {
-        Integer soma = calculaHash(elemento);
+        int soma = calculaHash(elemento);
         if (array[soma] == null) {
             final Dados dados = new Dados();
             dados.getElementos().add(elemento);
             array[soma] = dados;
         } else {
-            cont += 1;
+            colisoes += 1;
             array[soma].getElementos().add(elemento);
         }
     }
 
     public void consultar(String nome) {
-
-        Integer soma = calculaHash(new Elemento(nome + "; ; ; ;"));
+        int soma = calculaHash(new Elemento(nome + "; ; ;"));
         for (Elemento elemento : array[soma].getElementos()) {
             if (elemento.getNome().equalsIgnoreCase(nome)) {
                 System.out.println(String.format("%s\n%s\n%s\n%s", elemento.getNome(), elemento.getTelefone(),
@@ -50,7 +48,7 @@ public class HashTable {
     }
 
     public void excluir(String nome) {
-        Integer soma = calculaHash(new Elemento(nome + "; ; ; ;"));
+        int soma = calculaHash(new Elemento(nome + "; ; ;"));
         for (Elemento elemento : array[soma].getElementos()) {
             if (elemento.getNome().equalsIgnoreCase(nome)) {
                 array[soma].getElementos().remove(elemento);
@@ -60,7 +58,7 @@ public class HashTable {
     }
 
     public void atualizar(String nome, String telefone, String cidade, String pais) {
-        Integer soma = calculaHash(new Elemento(nome + "; ; ; ;"));
+        int soma = calculaHash(new Elemento(nome + "; ; ;"));
         for (Elemento elemento : array[soma].getElementos()) {
             if (elemento.getNome().equalsIgnoreCase(nome)) {
                 elemento.setTelefone(telefone);
@@ -71,7 +69,6 @@ public class HashTable {
     }
 
     public void salvar() {
-        
 
     }
 }

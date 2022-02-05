@@ -58,7 +58,7 @@ public final class ArquivoUtil {
                 out.write(nome + ';'
                         + telefone + ';'
                         + cidade + ';'
-                        + pais + ";\n");
+                        + pais + '\n');
                 nome = faker.name().fullName();
                 telefone = faker.phoneNumber().cellPhone();
                 cidade = faker.address().city();
