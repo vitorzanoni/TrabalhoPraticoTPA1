@@ -16,11 +16,11 @@ import tpa.trabalho_pratico.util.ArquivoUtil;
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
         log.info("Iniciada a geracao");
-        final File gerado = ArquivoUtil.geraArquivoTesteCSV(100L);
+        final File gerado = ArquivoUtil.geraArquivoTesteCSV(10L);
         log.info("Fim da geracao");
 
         //final File gerado = new File("gerado1000000.csv");
-        MergeSortExterno.realizaMergeSortCSV(gerado, true);
+        MergeSortExterno.realizaMergeSortCSV(gerado);
 
         // final BufferedReader reader = new BufferedReader(new FileReader(gerado));
         // final List<String> arquivos = new ArrayList<>();
