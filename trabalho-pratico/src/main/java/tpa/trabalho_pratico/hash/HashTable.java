@@ -26,4 +26,45 @@ public class HashTable {
             array[soma].getElementos().add(elemento);
         }
     }
+
+    public void consultar(String nome) {
+
+        Integer soma = calculaHash(new Elemento(nome + "; ; ; ;"));
+        for (Elemento elemento : array[soma].getElementos()) {
+            if (elemento.getNome().equalsIgnoreCase(nome)) {
+                System.out.println(String.format("%s\n%s\n%s\n%s", elemento.getNome(), elemento.getTelefone(),
+                        elemento.getCidade(), elemento.getPais()));
+            }
+        }
+    }
+
+    public void inserir(Elemento elemento) {
+        salvaElemento(elemento);
+    }
+
+    public void excluir(String nome) {
+        Integer soma = calculaHash(new Elemento(nome + "; ; ; ;"));
+        for (Elemento elemento : array[soma].getElementos()) {
+            if (elemento.getNome().equalsIgnoreCase(nome)) {
+                array[soma].getElementos().remove(elemento);
+            }
+        }
+
+    }
+
+    public void atualizar(String nome, String telefone, String cidade, String pais) {
+        Integer soma = calculaHash(new Elemento(nome + "; ; ; ;"));
+        for (Elemento elemento : array[soma].getElementos()) {
+            if (elemento.getNome().equalsIgnoreCase(nome)) {
+                elemento.setTelefone(telefone);
+                elemento.setCidade(cidade);
+                elemento.setPais(pais);
+            }
+        }
+    }
+
+    public void salvar() {
+        
+
+    }
 }

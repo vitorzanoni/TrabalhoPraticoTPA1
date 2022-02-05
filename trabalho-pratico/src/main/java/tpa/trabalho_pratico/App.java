@@ -23,7 +23,7 @@ public class App {
         // final File gerado = ArquivoUtil.geraArquivoTesteCSV(1000000L);
         // log.info("Fim da geracao");
 
-        final File gerado = new File("gerado1000000.csv");
+        final File gerado = new File("gerado10.csv");
         final BufferedReader reader = new BufferedReader(new FileReader(gerado));
         final long numLinhas = ArquivoUtil.countLines(gerado);
 
@@ -54,6 +54,8 @@ public class App {
         }
         arquivo.close();
         log.info("Fim do hash");
+
+        hashTable.consultar("Therese Boyle IV");
 
         reader.close();
     }
