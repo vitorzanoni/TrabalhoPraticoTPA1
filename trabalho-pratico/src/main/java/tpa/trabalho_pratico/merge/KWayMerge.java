@@ -23,7 +23,7 @@ public final class KWayMerge {
         final long sizeB = ArquivoUtil.countLines(b);
         final BufferedReader brA = new BufferedReader(new FileReader(a));
         final BufferedReader brB = new BufferedReader(new FileReader(b));
-        final String nomeOut = "merge_" + a.getName().substring(0, a.getName().length() - 4) + '_' + b.getName().substring(0, b.getName().length() - 4) + ".csv";
+        final String nomeOut = a.getName().substring(0, a.getName().length() - 4) + '_' + b.getName().substring(0, b.getName().length() - 4) + ".csv";
         final BufferedWriter out = new BufferedWriter(new FileWriter(nomeOut));
 
         String linhaA = brA.readLine();

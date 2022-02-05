@@ -11,7 +11,6 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import tpa.trabalho_pratico.util.ArquivoUtil;
 
 @Getter
@@ -70,12 +69,9 @@ public final class MergeSortExterno {
         linhas.clear();
     }
 
-    public static void realizaMergeSortCSV(File entrada) throws IOException {
-        final BufferedReader arquivoInicial = new BufferedReader(new FileReader(entrada));
-        final long metade = ArquivoUtil.countLines(entrada) / 2L;
-
-        final File arquivo0 = new File(ArquivoUtil.divideArquivoCSV(0L, arquivoInicial, metade, false));
-        final File arquivo1 = new File(ArquivoUtil.divideArquivoCSV(1L, arquivoInicial, metade, false));
+    public static void realizaMergeSortCSV(BufferedReader arquivoInicial, long numLinhas) throws IOException {
+        final File arquivo0 = new File(ArquivoUtil.divideArquivoCSV(0L, arquivoInicial, numLinhas / 2L, false));
+        final File arquivo1 = new File(ArquivoUtil.divideArquivoCSV(1L, arquivoInicial, numLinhas / 2L, false));
         final File arquivo2 = new File("lista2.csv");
         final File arquivo3 = new File("lista3.csv");
 
@@ -93,7 +89,7 @@ public final class MergeSortExterno {
             while ((linha0 != null) || (linha1 != null)) {
                 if (troca) {
                     troca = false;
-                    for (Long j = 0L; j < run; j++) {
+                    for (long j = 0L; j < run; j++) {
                         if (linha0 != null) {
                             escrita0.add(linha0);
                             linha0 = reader0.readLine();
@@ -105,7 +101,7 @@ public final class MergeSortExterno {
                     }
                 } else {
                     troca = true;
-                    for (Long j = 0L; j < run; j++) {
+                    for (long j = 0L; j < run; j++) {
                         if (linha0 != null) {
                             escrita1.add(linha0);
                             linha0 = reader0.readLine();
