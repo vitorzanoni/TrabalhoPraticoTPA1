@@ -1,11 +1,16 @@
 package tpa.trabalho_pratico.hash;
 
+import java.lang.constant.Constable;
+
+import javax.crypto.spec.DESKeySpec;
+
 import lombok.Getter;
 
 @Getter
 public class HashTable {
 
-    private Dados array[] = new Dados[500000];
+    private static final int TAMANHO = 10;
+    private Dados array[] = new Dados[TAMANHO];
 
     public Integer calculaHash(Elemento elemento) {
         Integer soma = 0;
@@ -13,9 +18,10 @@ public class HashTable {
         for (int i = 0; i < bytes.length; i++) {
             soma += bytes[i] * 10 + i;
         }
-        return soma %= 2069;
+        return (soma %= 2069)/TAMANHO;
     }
-
+    
+    int cont = 0;
     public void salvaElemento(Elemento elemento) {
         Integer soma = calculaHash(elemento);
         if (array[soma] == null) {
@@ -23,6 +29,7 @@ public class HashTable {
             dados.getElementos().add(elemento);
             array[soma] = dados;
         } else {
+            cont += 1;
             array[soma].getElementos().add(elemento);
         }
     }
