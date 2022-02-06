@@ -1,16 +1,16 @@
 package tpa.trabalho_pratico.hash;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import lombok.Getter;
 
 @Getter
 public class HashTable {
 
-    private Dados[] array;
+    private Dados[] array = new Dados[10000];
     private int colisoes = 0;
-
-    public HashTable(Long tamanho) {
-        this.array = new Dados[tamanho.intValue()];
-    }
 
     public int calculaHash(Elemento elemento) {
         int soma = 0;
@@ -34,11 +34,14 @@ public class HashTable {
     }
 
     public void consultar(String nome) {
-        int soma = calculaHash(new Elemento(nome + "; ; ;"));
-        for (Elemento elemento : array[soma].getElementos()) {
-            if (elemento.getNome().equalsIgnoreCase(nome)) {
-                System.out.println(String.format("%s\n%s\n%s\n%s", elemento.getNome(), elemento.getTelefone(),
-                        elemento.getCidade(), elemento.getPais()));
+        int soma = calculaHash(new Elemento(nome + "; ; ; "));
+        if (array[soma] != null) {
+            for (Elemento elemento : array[soma].getElementos()) {
+                if (elemento.getNome().equalsIgnoreCase(nome)) {
+                    System.out.println(String.format("Resultado da consulta:\n%s\n%s\n%s\n%s", elemento.getNome(),
+                            elemento.getTelefone(),
+                            elemento.getCidade(), elemento.getPais()));
+                }
             }
         }
     }
@@ -48,27 +51,38 @@ public class HashTable {
     }
 
     public void excluir(String nome) {
-        int soma = calculaHash(new Elemento(nome + "; ; ;"));
-        for (Elemento elemento : array[soma].getElementos()) {
-            if (elemento.getNome().equalsIgnoreCase(nome)) {
-                array[soma].getElementos().remove(elemento);
+        int soma = calculaHash(new Elemento(nome + "; ; ; "));
+        if (array[soma] != null) {
+            for (int i = 0; i < array[soma].getElementos().size(); i++) {
+                if (array[soma].getElementos().get(i).getNome().equalsIgnoreCase(nome)) {
+                    array[soma].getElementos().remove(i);
+                }
             }
         }
-
     }
 
     public void atualizar(String nome, String telefone, String cidade, String pais) {
-        int soma = calculaHash(new Elemento(nome + "; ; ;"));
-        for (Elemento elemento : array[soma].getElementos()) {
-            if (elemento.getNome().equalsIgnoreCase(nome)) {
-                elemento.setTelefone(telefone);
-                elemento.setCidade(cidade);
-                elemento.setPais(pais);
+        int soma = calculaHash(new Elemento(nome + "; ; ; "));
+        if (array[soma] != null) {
+            for (Elemento elemento : array[soma].getElementos()) {
+                if (elemento.getNome().equalsIgnoreCase(nome)) {
+                    elemento.setTelefone(telefone);
+                    elemento.setCidade(cidade);
+                    elemento.setPais(pais);
+                }
             }
         }
     }
 
-    public void salvar() {
-
+    public void salvar() throws IOException {
+        final BufferedWriter out = new BufferedWriter(new FileWriter("saida.csv"));
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                for (Elemento elemento : array[i].getElementos()) {
+                    out.write(elemento.toString() + '\n');
+                }
+            }
+        }
+        out.close();
     }
 }
