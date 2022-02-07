@@ -21,7 +21,7 @@ public class HashTable {
         return soma %= 2069;
     }
 
-    public void salvaElemento(Elemento elemento) {
+    public void inserir(Elemento elemento) {
         int soma = calculaHash(elemento);
         if (array[soma] == null) {
             final Dados dados = new Dados();
@@ -44,10 +44,6 @@ public class HashTable {
                 }
             }
         }
-    }
-
-    public void inserir(Elemento elemento) {
-        salvaElemento(elemento);
     }
 
     public void excluir(String nome) {

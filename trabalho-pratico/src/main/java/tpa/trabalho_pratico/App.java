@@ -26,7 +26,7 @@ public class App {
         final BufferedReader arquivo = new BufferedReader(new FileReader(nome));
         for (String linha : arquivo.lines().toList()) {
             Elemento elemento = new Elemento(linha);
-            hashTable.salvaElemento(elemento);
+            hashTable.inserir(elemento);
         }
         arquivo.close();
         log.info("Numero de colisoes -> {}", hashTable.getColisoes());
