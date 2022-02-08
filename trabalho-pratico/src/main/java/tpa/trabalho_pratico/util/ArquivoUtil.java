@@ -20,19 +20,20 @@ public final class ArquivoUtil {
 
     }
 
-    public static String divideArquivoCSV(Long numero, BufferedReader reader, long num_linhas, boolean ordena) throws IOException {
-        final File arquivo = new File("lista" + numero.toString() + ".csv");
+    public static String divideArquivoCSV(long numero, BufferedReader reader, long numLinhas, boolean ordena)
+            throws IOException {
+        final File arquivo = new File("lista" + numero + ".csv");
         final BufferedWriter out = new BufferedWriter(new FileWriter(arquivo));
         final List<String> linhas = new ArrayList<>();
 
-        for (long i = numero * num_linhas; i < numero * num_linhas + num_linhas; i++) {
+        for (long i = numero * numLinhas; i < numero * numLinhas + numLinhas; i++) {
             linhas.add(reader.readLine() + '\n');
         }
-        
+
         if (ordena) {
             linhas.sort((a, b) -> a.compareTo(b));
         }
-        
+
         linhas.forEach(arg0 -> {
             try {
                 out.write(arg0);
@@ -44,7 +45,7 @@ public final class ArquivoUtil {
         return arquivo.getName();
     }
 
-    public static File geraArquivoTesteCSV(Long maxSize) {
+    public static File geraArquivoTesteCSV(long maxSize) {
         try {
             final File gerado = new File("gerado" + maxSize + ".csv");
             final BufferedWriter out = new BufferedWriter(new FileWriter(gerado));
@@ -57,7 +58,7 @@ public final class ArquivoUtil {
                 out.write(nome + ';'
                         + telefone + ';'
                         + cidade + ';'
-                        + pais + ";\n");
+                        + pais + '\n');
                 nome = faker.name().fullName();
                 telefone = faker.phoneNumber().cellPhone();
                 cidade = faker.address().city();
