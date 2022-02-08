@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.time.StopWatch;
 
 import lombok.extern.slf4j.Slf4j;
 import tpa.trabalho_pratico.hash.Elemento;
@@ -22,6 +25,7 @@ public class App {
 
     private static void hash(String nome) throws IOException {
         log.info("Iniciado o hash");
+        StopWatch timer = StopWatch.createStarted();
         hashTable = new HashTable();
         final BufferedReader arquivo = new BufferedReader(new FileReader(nome));
         for (String linha : arquivo.lines().toList()) {
@@ -30,6 +34,8 @@ public class App {
         }
         arquivo.close();
         log.info("Numero de colisoes -> {}", hashTable.getColisoes());
+        timer.stop();
+        log.info("Tempo de execucao do metodo -> {} segundos", timer.getTime(TimeUnit.SECONDS));
         log.info("Fim do hash");
     }
 
@@ -43,9 +49,12 @@ public class App {
         log.info("Fim da divisao");
 
         log.info("Iniciado o k-way merge");
+        StopWatch timer = StopWatch.createStarted();
         while (arquivos.size() > 1) {
             KWayMerge.realizaKWayMergeCSV(new File(arquivos.get(0)), new File(arquivos.get(1)), arquivos);
         }
+        timer.stop();
+        log.info("Tempo de execucao do metodo -> {} segundos", timer.getTime(TimeUnit.SECONDS));
         log.info("Fim do k-way merge");
 
         return "lista4_lista5_lista6_lista7_lista8_lista9_lista0_lista1_lista2_lista3.csv";
@@ -64,7 +73,10 @@ public class App {
     private static String mergeSortExterno(BufferedReader reader, long numLinhas)
             throws IOException {
         log.info("Iniciado o merge sort externo");
+        StopWatch timer = StopWatch.createStarted();
         MergeSortExterno.realizaMergeSortCSV(reader, numLinhas);
+        timer.stop();
+        log.info("Tempo de execucao do metodo -> {} segundos", timer.getTime(TimeUnit.SECONDS));
         log.info("Fim do merge sort externo");
 
         File lista0 = new File("lista0.csv");
@@ -89,14 +101,17 @@ public class App {
 
     private static File geraArquivo(long maxSize) {
         log.info("Iniciada a geracao");
+        StopWatch timer = StopWatch.createStarted();
         final File gerado = ArquivoUtil.geraArquivoTesteCSV(maxSize);
+        timer.stop();
+        log.info("Tempo de execucao do metodo -> {} segundos", timer.getTime(TimeUnit.SECONDS));
         log.info("Fim da geracao");
         return gerado;
     }
 
     public static void main(String[] args) throws IOException {
-        // final File gerado = geraArquivo(10000000L);
-        final File gerado = new File("gerado10.csv");
+        // final File gerado = geraArquivo(1000000L);
+        final File gerado = new File("gerado1000000.csv");
         final BufferedReader reader = new BufferedReader(new FileReader(gerado));
         final long numLinhas = ArquivoUtil.countLines(gerado);
         // final String nome = mergeSortExterno(reader, numLinhas);
